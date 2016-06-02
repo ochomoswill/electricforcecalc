@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Electric Force Calculator</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/main.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<script>
+        /*Script for ensuring the text boxes have values before the submit button is clickable. */
+				function checkform() {
+					var f = document.forms["calcForm1"].elements;
+					var cansubmit = true;
+
+					for (var i = 0; i < f.length; i++) {
+						if (f[i].value.length == 0)
+							cansubmit = false;
+					}
+
+					document.getElementById('submitbutton').disabled = !cansubmit;
+				}
+				window.onload = checkform;
+	</script>
+	
+	
+</head>
+
+<body>
+<!--Navigation bar-->
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#myPage">Electric Force Calculator</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">Coulomb's Law</a></li>
+        <li><a href="#calcForm">Calculator.</a></li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<!--Jumbotron div-->
+<div class="jumbotron text-center">
+	  <h1>Calculator</h1> 
+	  <p>Calculates the electric force.</p>
+	  </div>
+
+<!--Coulombs Law-->
+<div id="about" class="container-fluid text-center" background-color="#f8f8f8">
+
+	<center><h2>Coulomb's Law</h2></center><br/>
+
+	<div  align="center">
+	<img src="img/coulomb1.png" class="img-responsive" width="650" length="450"><br/><br/>
+	</div>
+
+    <div >      
+      <p>Coulomb's law is a vector equation and includes the fact that the 
+			force acts along the line joining the charges. Like charges repel and 
+			unlike charges attract. Coulomb's law describes a force of infinite 
+			range which obeys the inverse square law, and is of the same form as the gravity force.</p></br>
+      
+    </div>
+	
+	<div align="center">
+      <img src="img/coulaw.gif" class="img-responsive" ></br>
+	 </div>
+
+	<p>The constant of proportionality k appearing in Coulomb's law is often called Coulomb's constant.
+	Note that it can be expressed in terms of another constant, ε0 = permittivity of space.</p></br>
+
+	<div align="center">
+      <img src="img/coucon.gif" class="img-responsive" ></br>
+	</div>
+
+	<p>The electric force between charges may be calculated using Coulomb's law.</p></br>
+    
+  
+</div>
+
+	
+
+				<div id="calcForm" class="container-fluid ">
+				
+				<center><h1>Electric Force Calculator</h1></center></br>
+				<div class="col-sm-offset-2 col-sm-10">
+				<h4>Fill in the form with the respective variables to get the Electric Force.</h4></br>
+				</div>
+					
+					<form class="form-horizontal" role="form" name ="calcForm1">
+
+						<div class="form-group">
+						<label class="control-label col-sm-2" for="q1">Charge 1:</label>
+						<div class="col-sm-8">
+						<input type="text" class="form-control" id="q1"  onkeyup="checkform()" placeholder="q1 in Coulombs (C)">
+						</div>
+						</div>
+						
+						<div class="form-group">
+						<label class="control-label col-sm-2" for="q2">Charge 2:</label>
+						<div class="col-sm-8">
+						<input type="text" class="form-control" id="q2"  onkeyup="checkform()" placeholder="q2 in Coulombs (C)">
+						</div>
+						</div>
+						
+						<div class="form-group">
+						<label class="control-label col-sm-2" for="radius">Radius:</label>
+						<div class="col-sm-8">
+						<input type="text" class="form-control" id="radius"  onkeyup="checkform()" placeholder="r in metres (m)">
+						</div>
+						</div>
+						
+						<div class="form-group"> 
+							<div class="col-sm-offset-2 col-sm-10">
+							  <input type="button" class="btn btn-info btn-sm open-modal" data-toggle="modal" data-target="#myModal" onclick="calcF()" id="submitbutton" value = "Calculate Force"/>
+							</div>
+						</div>
+						
+							
+					</form>
+					
+					
+					
+					
+					
+				</div>
+
+				<!-- Modal -->
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Modal Header</h4>
+							</div>
+							<div class="modal-body" id ="modal-body">
+								<span id = "result"></span>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal" onclick="reloadpage()" >Close</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+				
+				
+
+			
+			
+
+<script>
+
+	//function to calculate the Electric Force.
+	function calcF(){
+		
+		var q1 = document.getElementById("q1").value;
+		var q2 = document.getElementById("q2").value;
+		var radius = document.getElementById("radius").value;
+		var k = 8.99 * Math.pow(10,9);
+		
+		var electricForce = (k * q1 * q2)/ (radius*radius);
+		
+		var res = "The Electric Force is" + " " + Math.ceil(electricForce) + "N";
+		//views the data on the modal box
+		document.getElementById("result").innerHTML = res;	
+	}
+	//function to reload the page
+	function reloadpage(){
+				
+			window.location = window.location;
+								
+	}
+		
+</script>
+
+<footer >
+	<div class="container-fluid">
+  <div class="pull-right">
+  <p>Electric Force Calculator Made By <img src = "img/ochomoswill3.png" height="40" width = "40"> <i>Ochomoswill Incorporated.</i></img></p>		
+	</div>
+		</div>
+</footer>
+
+
+
+</body>
+
+</html>
